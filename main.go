@@ -9,6 +9,7 @@ import (
 
 func init() {
 	utils.LoadConfig()
+	utils.InitLogger()
 }
 
 func main() {
