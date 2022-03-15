@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/AnggunPermata/go-forum/helper/utils"
 	"github.com/AnggunPermata/go-forum/server/routes"
@@ -19,8 +20,11 @@ func main() {
 	routes.InitRoutes(mux)
 
 	server := &http.Server{
-		Addr:    "0.0.0.0:8080",
-		Handler: mux,
+		Addr:           utils.Config.Address,
+		Handler:        mux,
+		ReadTimeout:    time.Duration(utils.Config.ReadTimeout * int64(time.Second)),
+		WriteTimeout:   time.Duration(utils.Config.WriteTimeOut * int64(time.Second)),
+		MaxHeaderBytes: 1 << 20,
 	}
 
 	server.ListenAndServe()
